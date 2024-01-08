@@ -17,8 +17,9 @@ def home(request):
 
 def get_quiz(request):
     try:
-        question_objs=Question.objects.all()
+        question_objs=list(Question.objects.all())
         data=[]
+        random.shuffle(question_objs)
         for question_objs in question_objs:
             data.append({
                 'category':question_objs.category.category_name,
@@ -27,7 +28,7 @@ def get_quiz(request):
 
             })
             payload={'status':True,'data':data}
-            return JsonResponse(payload)
+        return JsonResponse(payload)
 
     except Exception as e:
         print(e)
