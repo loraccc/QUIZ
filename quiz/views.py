@@ -24,7 +24,11 @@ def quiz(request):
 
 def get_quiz(request):
     try:
-        question_objs=list(Question.objects.all())
+        question_objs=Question.objects.all()
+        
+        if request.GET.get('category'):
+            question_objs = question_objs.filter(category__category_name__icontains=request.GET.get('category')) #filtering to get the desired ans category is related name and db underscore helps to access foreignkey element 
+        question_objs=list(question_objs) #if doesnt get the filter
         data=[]
         random.shuffle(question_objs)
         for question_objs in question_objs:
