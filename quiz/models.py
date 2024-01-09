@@ -23,10 +23,19 @@ class Question(BaseModel):
     marks=models.IntegerField(default=5)
     def __str__(self) -> str:
         return self.question
-
+    
+    def get_answers(self):
+        answer_objs=Answer.objects.filter(question = self)
+        data=[]
+        for answer_objs in answer_objs:
+            data.append({
+                'answer':answer_objs.answer,
+                'is_correct':answer_objs.is_correct,
+            })  
+        return data
 
 class Answer(BaseModel):
-    question=models.ForeignKey(Question,on_delete=models.CASCADE)
+    question=models.ForeignKey(Question,related_name='question_answer',on_delete=models.CASCADE)
     answer=models.CharField(max_length=100)
     is_correct=models.BooleanField(default=False)
 

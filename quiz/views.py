@@ -1,13 +1,20 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from django.http import JsonResponse
 from . import views
 from .models import *
-
 import random
 # Create your views here.
 
 def home(request):
-    return HttpResponse('Hello')
+    context={'categories':Category.objects.all}
+
+    if request.GET.get('category'):
+        return redirect(f"/quiz/?category={request.GET.get('category')}")
+    return render(request,'home.html',context)
+
+
+def quiz(request):
+    return render(request,'quiz.html')
 # {
 #     'status':True
 #     'data':[
@@ -24,7 +31,8 @@ def get_quiz(request):
             data.append({
                 'category':question_objs.category.category_name,
                 'question':question_objs.question,
-                'marks':question_objs.marks
+                'marks':question_objs.marks,
+                'answers':question_objs.get_answers(),
 
             })
             payload={'status':True,'data':data}

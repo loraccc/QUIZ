@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ QUESTIONS</title>
+</head>
+<body>
+    <h1>WELCOME TO RAPID FIRE QUIZ</h1>
+
+    <div class="container mx-auto">
+        <div class="col-md-6 mx-auto">
+            <form action="">
+            <div class="form-group">
+                <label >SELECT CATEGORY</label>
+                <select name ="category"class="form-control">
+                    <option value="Choose" class="">Choose</option>
+                    {% for category in categories %}
+                    <option value="{{category.category_name}}">{{category.category_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-danger mt-3">SUBMIT</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
