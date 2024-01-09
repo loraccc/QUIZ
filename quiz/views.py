@@ -14,7 +14,8 @@ def home(request):
 
 
 def quiz(request):
-    return render(request,'quiz.html')
+    context={'category':request.GET.get('category')}
+    return render(request,'quiz.html',context)
 # {
 #     'status':True
 #     'data':[
